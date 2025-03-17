@@ -1,0 +1,78 @@
+/* Full page container with white background */
+.question-bank-container {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: #333;
+    position: relative;
+  }
+  
+  /* Logo Styling */
+  .logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 120px;
+    height: auto;
+  }
+  
+  /* Title Styling */
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Question Box */
+  .question-box {
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Create Button */
+  .create-btn {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+  
+  /* Hover Animation */
+  .create-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.1);
+    box-shadow: 0px 4px 15px rgba(0, 0, 255, 0.3);
+  }
+  
+  /* Icon */
+  .icon {
+    margin-right: 8px;
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

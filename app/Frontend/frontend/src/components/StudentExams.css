@@ -1,0 +1,153 @@
+.exams-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.exams-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.exams-header h1 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.logo {
+  height: 10px;
+  size: 10px;
+  margin-right: 5rem;
+  margin-left: 5rem;
+}
+
+.back-button {
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #5a6268;
+}
+
+.attend-exam-section {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.attend-exam-button {
+  padding: 12px 24px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.attend-exam-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.exams-table-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin-top: 30px;
+}
+
+.exams-table-container h2 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.exams-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.exams-table th,
+.exams-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.exams-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+}
+
+.exams-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.loading-message,
+.error-message,
+.no-exams-message {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+}
+
+.error-message {
+  color: #dc3545;
+}
+
+.result {
+  font-weight: 600;
+}
+
+.passed {
+  color: #28a745;
+}
+
+.failed {
+  color: #dc3545;
+}
+
+.pending {
+  color: #ffc107;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .exams-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .exams-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .exams-header h1 {
+    order: -1;
+  }
+}

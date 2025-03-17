@@ -1,0 +1,119 @@
+# Exam Creation Logic
+def create_exam(db: Session, teacher_id: str, exam_name: str, exam_date: datetime, question_bank_id: str, sections: dict):
+    try:
+        print("Validating teacher...")
+        teacher = db.query(User).filter(User.id == teacher_id).first()
+        if not teacher:
+            raise ValueError("Invalid teacher ID")
+
+        print(f"Teacher found: {teacher}")
+
+        exam_id = str(uuid4())
+        all_sections = {}
+        total_time = 0
+
+        print("Validating sections and fetching questions...")
+        for q_type, details in sections.items():
+            if not isinstance(details, dict) or "count" not in details or "duration" not in details:
+                raise ValueError(f"Invalid format for section '{q_type}'. Expected keys: 'count' and 'duration'.")
+
+            count = details["count"]
+            duration = details["duration"]
+            total_time += duration
+
+            if not isinstance(count, int) or not isinstance(duration, int):
+                raise ValueError(f"Invalid data type for section '{q_type}'. 'count' and 'duration' must be integers.")
+
+            questions = (
+                db.query(Question)
+                .join(QuestionBank, Question.question_bank_id == QuestionBank.id)  # Explicit join
+                .filter(
+                Question.question_type == q_type,
+                QuestionBank.owner_id == teacher_id,
+                Question.question_bank_id == question_bank_id
+                )
+                .options(joinedload(Question.question_bank))  # Optional for optimization
+                .all()
+            )
+            print(f"Fetched {len(questions)} questions for type {q_type}")
+
+            if len(questions) < count:
+                raise ValueError(f"Not enough questions available for {q_type}. Requested: {count}, Available: {len(questions)}")
+
+            selected_questions = random.sample(questions, count)
+            section_data = {"questions": [], "duration": duration}
+
+            for question in selected_questions:
+                if q_type == "MCQ":
+                    if isinstance(question.options, str):
+                        try:
+                            options_dict = json.loads(question.options)  # Convert JSON string to dictionary
+                        except json.JSONDecodeError:
+                            raise ValueError(f"Invalid JSON format for question options: {question.options}")
+                    elif isinstance(question.options, dict):
+                            options_dict = question.options  # Already a dictionary
+                    else:
+                        raise ValueError(f"Unexpected type for options: {type(question.options)}")
+
+                    # Shuffle options
+                    options_list = list(options_dict.items())  # Convert dictionary to list of tuples
+                    random.shuffle(options_list)  # Shuffle the options
+                    correct_option_key = question.correct_option
+                    shuffled_options = {k: v for k, v in options_list}
+
+                    # Identify the correct option in shuffled options
+                    # This key should exist in the original options
+                    correct_answer = shuffled_options.get(correct_option_key, None)
+
+
+                    section_data["questions"].append({
+                        "question_text": question.question_text,
+                        "options": shuffled_options,  # Use shuffled options
+                        "correct_option": correct_answer,
+                        "score": question.score,
+                    })
+                elif q_type == "Essay":
+                    section_data["questions"].append({
+                        "question_text": question.question_text,
+                        "word_count_limit": question.max_words,  # Ensure this field exists
+                        "score": question.score,
+                    })
+                else:
+                    section_data["questions"].append({
+                        "question_text": question.question_text,
+                        "score": question.score,
+                    })
+
+            all_sections[q_type] = section_data
+
+        print("Creating the exam...")
+        new_exam = Exam(
+            exam_id=exam_id,
+            teacher_id=teacher_id,
+            question_bank_id=question_bank_id,
+            exam_name=exam_name,
+            exam_date=exam_date,
+            sections=all_sections,
+        )
+        db.add(new_exam)
+        db.commit()
+        db.refresh(new_exam)
+
+        return {
+            "success": True,
+            "exam": {
+                "exam_id": new_exam.exam_id,
+                "exam_name": new_exam.exam_name,
+                "total_time": total_time,
+                "sections": all_sections
+            }
+        }
+
+    except ValueError as ve:
+        print(f"Value Error: {str(ve)}")
+        return {"success": False, "error": str(ve)}
+
+    except Exception as e:
+        db.rollback()
+        print(f"Unexpected Error: {str(e)}")
+        return {"success": False, "error": "An unexpected error occurred."}

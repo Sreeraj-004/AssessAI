@@ -1,0 +1,268 @@
+.waiting-lobby {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #f6f9fc 0%, #edf2f7 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Dashboard Header Styles */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-logo {
+    height: 50px;
+    width: auto;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.student-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.logout-button {
+    padding: 0.5rem 1rem;
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #c53030;
+    transform: translateY(-1px);
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.content h1 {
+    color: #2d3748;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.timer {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.time-display {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #4299e1;
+    font-family: 'Courier New', monospace;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5rem;
+}
+
+.time-label {
+    font-size: 1.2rem;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.instructions {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    width: 100%;
+}
+
+.instructions h2 {
+    color: #2d3748;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.instructions ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.instructions li {
+    color: #4a5568;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #edf2f7;
+    display: flex;
+    align-items: center;
+}
+
+.instructions li:last-child {
+    border-bottom: none;
+}
+
+.instructions li::before {
+    content: "•";
+    color: #4299e1;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.animation-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 20s infinite ease-in-out;
+}
+
+.circle1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #4299e1, #667eea);
+    top: -150px;
+    left: -150px;
+    animation-delay: -5s;
+}
+
+.circle2 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    bottom: -200px;
+    right: -200px;
+    animation-delay: -10s;
+}
+
+.circle3 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #4299e1, #764ba2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -15s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(50px, 50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(0, 100px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50px, 50px) rotate(270deg);
+    }
+}
+
+.error {
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-message {
+    background: #fff5f5;
+    color: #e53e3e;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+    font-size: 1.1rem;
+    border: 1px solid #fed7d7;
+}
+
+.back-button {
+    padding: 0.75rem 2rem;
+    background: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background: #2d3748;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 1rem;
+    }
+
+    .content h1 {
+        font-size: 2rem;
+    }
+
+    .time-display {
+        font-size: 2.5rem;
+    }
+
+    .instructions {
+        padding: 1.5rem;
+    }
+
+    .dashboard-header {
+        padding: 1rem;
+    }
+
+    .header-right {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .logout-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
